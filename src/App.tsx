@@ -26,8 +26,8 @@ function App() {
     const update: obj = { items: e.target.value, id: shortid.generate(), ischecked: false }
     setmobileitems(update)
   }
-  const handleadditem = (e: FormEvent<HTMLFormElement>): void => {
-    e.preventDefault()
+  const handleadditem = (): void => {
+
     setListarr((prev) => [...prev, { items: mobileitems.items, id: mobileitems.id, ischecked: mobileitems.ischecked }])
     console.log(mobileitems)
   }
@@ -71,10 +71,10 @@ function App() {
           </div>
         </div>
 
-        <form className=' bg-100 sticky bottom-0 py-5 w-full flex justify-center items-center lg:hidden' onSubmit={handleadditem}>
+        <div className=' bg-100 sticky bottom-0 py-5 w-full flex justify-center items-center lg:hidden' >
           <input type='text' placeholder='Add list' className='pl-3 pr-7 w-60 h-9 outline-none border border-black block rounded-full' value={mobileitems.items} onChange={handlechange} />
-          <FaSave className='absolute ml-52' />
-        </form>
+          <FaSave className='absolute ml-52' onClick={handleadditem} />
+        </div>
       </section>
     </div>
   );
