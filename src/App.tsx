@@ -1,4 +1,4 @@
-import react, { ChangeEvent, FormEvent } from 'react'
+import react, { ChangeEvent, FormEvent, useEffect } from 'react'
 import shortid from 'shortid'
 import './App.css';
 import { useState } from 'react';
@@ -22,9 +22,14 @@ function App() {
 
   const [changeInput, setChangeinput] = useState<boolean>(false)
 
+  const [search, setsearch] = useState<string>("")
+
   const handlechange = (e: ChangeEvent<HTMLInputElement>): void => {
     const update: obj = { items: e.target.value, id: shortid.generate(), ischecked: false }
     setmobileitems(update)
+  }
+  const handlesearch = (e: ChangeEvent<HTMLInputElement>): void => {
+    setsearch(e.target.value)
   }
   const handleadditem = (): void => {
 
@@ -35,6 +40,11 @@ function App() {
   const handleChangeinput = (id: boolean) => {
     setChangeinput(prev => prev === id ? !prev : prev)
   }
+
+  useEffect(() => {
+    const newsearch = listarr.filter(item => { item.items.toLowerCase().includes(search.toLowerCase()) })
+
+  }, [search])
 
   const newarr = listarr.map(prev => { return <div key={prev.id} className='mt-10'><input type='checkbox' /><p className='text-white'>{prev.items}</p></div> })
   console.log(newarr)
